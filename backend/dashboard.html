@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>Admin Dashboard – JP Networking</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&family=Inter+Tight:wght@400;500;600&display=swap" rel="stylesheet"/>
+  <style>
+    *{box-sizing:border-box;margin:0;padding:0}
+    :root{--navy:#0A1F44;--sky:#3B8FD4;--pale:#D6EAFA;--frost:#EEF6FD}
+    body{font-family:'Inter Tight',sans-serif;background:#f0f4f8;color:#1a1a2e;min-height:100vh}
+
+    /* HEADER */
+    header{background:var(--navy);padding:.9rem 1.5rem;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(0,0,0,.25)}
+    .h-logo{display:flex;align-items:center;gap:.65rem}
+    .h-icon{width:36px;height:36px;border-radius:.6rem;background:var(--sky);display:flex;align-items:center;justify-content:center}
+    .h-icon svg{width:20px;height:20px;color:#fff}
+    .h-brand{font-family:'Poppins',sans-serif;font-weight:700;color:#fff;font-size:.95rem}
+    .h-sub{font-size:.7rem;color:rgba(255,255,255,.55)}
+    .logout{background:rgba(255,255,255,.12);color:#fff;border:none;border-radius:.5rem;padding:.45rem 1rem;font-family:'Inter Tight',sans-serif;font-weight:600;font-size:.82rem;cursor:pointer;text-decoration:none;transition:background .2s}
+    .logout:hover{background:rgba(255,255,255,.22)}
+
+    /* TABS */
+    .tab-bar{background:#fff;border-bottom:2px solid #e5eaf0;padding:0 1.5rem;display:flex;gap:0}
+    .tab{padding:.85rem 1.5rem;font-family:'Poppins',sans-serif;font-weight:600;font-size:.85rem;color:#6b7280;cursor:pointer;border-bottom:3px solid transparent;margin-bottom:-2px;text-decoration:none;transition:color .2s,border-color .2s}
+    .tab:hover,.tab.active{color:var(--sky);border-bottom-color:var(--sky)}
+    .badge{display:inline-block;background:#ef4444;color:#fff;font-size:.65rem;font-weight:700;border-radius:999px;padding:.1rem .4rem;margin-left:.35rem;vertical-align:middle}
+    .badge.zero{background:#e5eaf0;color:#9ca3af}
+
+    /* STATS */
+    .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;padding:1.5rem;max-width:1200px;margin:0 auto}
+    @media(max-width:768px){.stats{grid-template-columns:repeat(2,1fr)}}
+    .stat{background:#fff;border-radius:1rem;padding:1.25rem 1.5rem;border-left:4px solid var(--sky);box-shadow:0 2px 8px rgba(0,0,0,.06)}
+    .stat-val{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.8rem;color:var(--navy)}
+    .stat-lbl{font-size:.78rem;color:#6b7280;margin-top:.2rem}
+    .stat-new{font-size:.72rem;color:var(--sky);font-weight:600;margin-top:.15rem}
+
+    /* CONTENT */
+    .content{max-width:1200px;margin:0 auto;padding:0 1.5rem 2rem}
+
+    /* TABLE WRAPPER */
+    .table-section{display:none}
+    .table-section.active{display:block}
+    .section-header{display:flex;align-items:center;justify-content:space-between;margin:1.5rem 0 .9rem}
+    .section-title{font-family:'Poppins',sans-serif;font-weight:700;color:var(--navy);font-size:1.1rem}
+    .count-badge{background:var(--pale);color:var(--sky);font-weight:700;font-size:.78rem;padding:.25rem .65rem;border-radius:999px}
+
+    /* TABLE */
+    .tbl-wrap{background:#fff;border-radius:1rem;box-shadow:0 2px 12px rgba(0,0,0,.07);overflow:hidden}
+    table{width:100%;border-collapse:collapse;font-size:.83rem}
+    thead{background:var(--navy);color:#fff;font-family:'Poppins',sans-serif;font-size:.78rem;text-transform:uppercase;letter-spacing:.05em}
+    th,td{padding:.75rem 1rem;text-align:left}
+    tbody tr{border-bottom:1px solid #f0f4f8;transition:background .15s}
+    tbody tr:last-child{border-bottom:none}
+    tbody tr:hover{background:#f8fbfe}
+    td.name{font-weight:600;color:var(--navy)}
+    td.email{color:var(--sky);word-break:break-all}
+    td.msg{color:#6b7280;max-width:200px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+    td.date{color:#9ca3af;white-space:nowrap;font-size:.78rem}
+
+    /* STATUS BADGE */
+    .status{display:inline-block;padding:.2rem .6rem;border-radius:999px;font-size:.7rem;font-weight:700;letter-spacing:.03em}
+    .status.new{background:#dbeafe;color:#1d4ed8}
+    .status.reviewed{background:#fef9c3;color:#a16207}
+    .status.resolved{background:#dcfce7;color:#15803d}
+
+    /* ACTIONS */
+    .actions{display:flex;gap:.4rem;flex-wrap:wrap}
+    .btn-xs{font-size:.72rem;padding:.28rem .65rem;border-radius:.4rem;border:none;cursor:pointer;font-family:'Inter Tight',sans-serif;font-weight:600;transition:background .15s}
+    .btn-review{background:#fef9c3;color:#a16207}
+    .btn-review:hover{background:#fde68a}
+    .btn-resolve{background:#dcfce7;color:#15803d}
+    .btn-resolve:hover{background:#bbf7d0}
+    .btn-delete{background:#fee2e2;color:#b91c1c}
+    .btn-delete:hover{background:#fecaca}
+
+    /* EMPTY */
+    .empty{text-align:center;padding:3rem 1rem;color:#9ca3af}
+    .empty svg{width:48px;height:48px;margin:0 auto 1rem;display:block;color:#d1d5db}
+
+    /* MOBILE scroll */
+    @media(max-width:640px){
+      .tbl-wrap{overflow-x:auto}
+      table{min-width:640px}
+      .stats{grid-template-columns:1fr 1fr}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="h-logo">
+    <div class="h-icon">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2" d="M3.055 11H5a2 2 0 012 2v1a2 2 0 002 2 2 2 0 012 2v2.945M8 3.935V5.5A2.5 2.5 0 0010.5 8h.5a2 2 0 012 2 2 2 0 104 0 2 2 0 012-2h1.064M15 20.488V18a2 2 0 012-2h3.064M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+    </div>
+    <div>
+      <div class="h-brand">JP Networking Services</div>
+      <div class="h-sub">Admin Dashboard</div>
+    </div>
+  </div>
+  <a href="/admin/logout" class="logout">Sign Out</a>
+</header>
+
+<!-- STATS -->
+<div class="stats">
+  <div class="stat">
+    <div class="stat-val">{{ stats.total_bookings }}</div>
+    <div class="stat-lbl">Total Bookings</div>
+    <div class="stat-new">{{ stats.new_bookings }} new</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">{{ stats.new_bookings }}</div>
+    <div class="stat-lbl">Pending Bookings</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">{{ stats.total_contacts }}</div>
+    <div class="stat-lbl">Total Messages</div>
+    <div class="stat-new">{{ stats.new_contacts }} new</div>
+  </div>
+  <div class="stat">
+    <div class="stat-val">{{ stats.new_contacts }}</div>
+    <div class="stat-lbl">Pending Messages</div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tab-bar">
+  <a href="#bookings" class="tab active" id="tab-bookings" onclick="switchTab('bookings',event)">
+    Bookings
+    <span class="badge {% if stats.new_bookings == 0 %}zero{% endif %}">{{ stats.new_bookings }}</span>
+  </a>
+  <a href="#contacts" class="tab" id="tab-contacts" onclick="switchTab('contacts',event)">
+    Contact Messages
+    <span class="badge {% if stats.new_contacts == 0 %}zero{% endif %}">{{ stats.new_contacts }}</span>
+  </a>
+</div>
+
+<div class="content">
+
+  <!-- BOOKINGS TABLE -->
+  <div class="table-section active" id="sec-bookings">
+    <div class="section-header">
+      <div class="section-title">Consultation Bookings</div>
+      <span class="count-badge">{{ bookings|length }} total</span>
+    </div>
+    <div class="tbl-wrap">
+      {% if bookings %}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Service</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for b in bookings %}
+          <tr>
+            <td style="color:#9ca3af">{{ b.id }}</td>
+            <td class="name">{{ b.first_name }} {{ b.last_name }}</td>
+            <td class="email">{{ b.email }}</td>
+            <td>{{ b.phone }}</td>
+            <td style="max-width:160px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ b.service }}</td>
+            <td class="msg" title="{{ b.message }}">{{ b.message or '—' }}</td>
+            <td><span class="status {{ b.status }}">{{ b.status }}</span></td>
+            <td class="date">{{ b.created_at[:16] }}</td>
+            <td class="actions">
+              {% if b.status != 'reviewed' %}
+              <form method="POST" action="/admin/booking/{{ b.id }}/status" style="display:inline">
+                <input type="hidden" name="status" value="reviewed"/>
+                <button class="btn-xs btn-review" type="submit">Review</button>
+              </form>
+              {% endif %}
+              {% if b.status != 'resolved' %}
+              <form method="POST" action="/admin/booking/{{ b.id }}/status" style="display:inline">
+                <input type="hidden" name="status" value="resolved"/>
+                <button class="btn-xs btn-resolve" type="submit">Resolve</button>
+              </form>
+              {% endif %}
+              <form method="POST" action="/admin/booking/{{ b.id }}/delete" style="display:inline" onsubmit="return confirm('Delete this booking?')">
+                <button class="btn-xs btn-delete" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+        No bookings yet.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+  <!-- CONTACTS TABLE -->
+  <div class="table-section" id="sec-contacts">
+    <div class="section-header">
+      <div class="section-title">Contact Messages</div>
+      <span class="count-badge">{{ contacts|length }} total</span>
+    </div>
+    <div class="tbl-wrap">
+      {% if contacts %}
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Subject</th>
+            <th>Message</th>
+            <th>Status</th>
+            <th>Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for c in contacts %}
+          <tr>
+            <td style="color:#9ca3af">{{ c.id }}</td>
+            <td class="name">{{ c.name }}</td>
+            <td class="email">{{ c.email }}</td>
+            <td>{{ c.phone or '—' }}</td>
+            <td>{{ c.subject or '—' }}</td>
+            <td class="msg" title="{{ c.message }}">{{ c.message }}</td>
+            <td><span class="status {{ c.status }}">{{ c.status }}</span></td>
+            <td class="date">{{ c.created_at[:16] }}</td>
+            <td class="actions">
+              {% if c.status != 'reviewed' %}
+              <form method="POST" action="/admin/contact/{{ c.id }}/status" style="display:inline">
+                <input type="hidden" name="status" value="reviewed"/>
+                <button class="btn-xs btn-review" type="submit">Review</button>
+              </form>
+              {% endif %}
+              {% if c.status != 'resolved' %}
+              <form method="POST" action="/admin/contact/{{ c.id }}/status" style="display:inline">
+                <input type="hidden" name="status" value="resolved"/>
+                <button class="btn-xs btn-resolve" type="submit">Resolve</button>
+              </form>
+              {% endif %}
+              <form method="POST" action="/admin/contact/{{ c.id }}/delete" style="display:inline" onsubmit="return confirm('Delete this message?')">
+                <button class="btn-xs btn-delete" type="submit">Delete</button>
+              </form>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% else %}
+      <div class="empty">
+        <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+        No messages yet.
+      </div>
+      {% endif %}
+    </div>
+  </div>
+
+</div>
+
+<script>
+  function switchTab(name, e) {
+    if(e) e.preventDefault();
+    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+    document.querySelectorAll('.table-section').forEach(s=>s.classList.remove('active'));
+    document.getElementById('tab-'+name).classList.add('active');
+    document.getElementById('sec-'+name).classList.add('active');
+    history.replaceState(null,'','#'+name);
+  }
+
+  // auto-switch if hash is #contacts
+  if(location.hash === '#contacts') switchTab('contacts', null);
+</script>
+</body>
+</html>
