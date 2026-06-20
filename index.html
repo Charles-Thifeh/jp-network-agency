@@ -941,7 +941,10 @@
 
         <div class="fade-up bg-white rounded-3xl p-8 shadow-2xl" style="transition-delay:0.1s">
           <h3 class="font-poppins font-bold text-navy text-xl mb-6">Book a Consultation</h3>
-          <form id="booking-form" class="space-y-4" onsubmit="submitBooking(event)">
+          <div id="booking-success"
+            style="display:none;color:green;font-size:.82rem;background:#fef2f2;border:1px solid #cafed3;border-radius:.5rem;padding:.6rem .9rem">
+          </div>
+          <form id="booking-form" class="space-y-4" onsubmit="submitBooking(event); return false;">
             <div class="grid grid-cols-2 gap-4">
               <div>
                 <label class="block mb-1.5">First Name</label>
@@ -1043,7 +1046,10 @@
       <!-- Contact Form -->
       <div class="max-w-2xl mx-auto bg-frost rounded-3xl p-8 fade-up">
         <h3 class="font-poppins font-bold text-navy text-xl mb-6">Send Us a Message</h3>
-        <form id="contact-form" class="space-y-4" onsubmit="submitContact(event)">
+        <div id="contact-success"
+            style="display:none;color:green;font-size:.82rem;background:#fef2f2;border:1px solid #cafed3;border-radius:.5rem;padding:.6rem .9rem">
+          </div>
+        <form id="contact-form" class="space-y-4" onsubmit="submitContact(event); return false;">
           <div class="grid grid-cols-2 gap-4">
             <div><label class="block mb-1.5">Name</label><input id="c-name" type="text" placeholder="Your full name"
                 required /></div>
@@ -1168,7 +1174,7 @@
 
   <!-- ═══════════════════════════════════════ SUCCESS TOAST ════════════════ -->
   <div id="toast"
-    class="fixed bottom-8 left-1/2 -translate-x-1/2 z-50 bg-navy text-white font-inter font-semibold text-sm px-6 py-3.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none border border-sky/30">
+    class="fixed bottom-8 left-1/2 -translate-x-1/2 z-100 bg-navy text-white font-inter font-semibold text-sm px-6 py-3.5 rounded-2xl shadow-2xl transition-all duration-300 opacity-0 pointer-events-none border border-sky/30">
     ✅ Message sent! We'll be in touch within 24 hours.
   </div>
 
@@ -1573,6 +1579,7 @@
         const data = await res.json();
         if (data.ok) {
           showToast(data.message);
+          showError('booking-success', 'Form Successfully Submitted.');
           document.getElementById('booking-form').reset();
         } else {
           showError('booking-error', data.error || 'Something went wrong. Please try again.');
@@ -1585,8 +1592,8 @@
       }
     }
 
-    async function submitContact(e) {
-      e.preventDefault();
+    async function submitContact(event) {
+      event.preventDefault();
       const btn = document.getElementById('contact-btn');
       btn.disabled = true;
       btn.textContent = 'Sending…';
@@ -1608,6 +1615,7 @@
         const data = await res.json();
         if (data.ok) {
           showToast(data.message);
+          showError('contact-success', 'Form Successfully Submitted.');
           document.getElementById('contact-form').reset();
         } else {
           showError('contact-error', data.error || 'Something went wrong. Please try again.');
