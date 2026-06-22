@@ -539,7 +539,6 @@
         <a href="#services" class="nav-link" data-section="services">Services</a>
         <a href="#testimonials" class="nav-link" data-section="testimonials">Testimonials</a>
         <a href="#faq" class="nav-link" data-section="faq">FAQ</a>
-        <a href="#blog" class="nav-link" data-section="blog">Blog</a>
         <a href="#contact" class="nav-link" data-section="contact">Contact</a>
       </div>
 
@@ -548,24 +547,19 @@
       </div>
 
       <!-- HAMBURGER -->
-      <button id="menu-btn" class="lg:hidden text-white p-2" aria-label="Open menu">
-        <svg id="menu-icon" class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path id="menu-open" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M4 6h16M4 12h16M4 18h16" />
-          <path id="menu-close" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-            d="M6 18L18 6M6 6l12 12" />
-        </svg>
+      <button id="menu-btn" class="lg:hidden text-white p-2">
+        <i id="menu-open" class="fas fa-bars w-6 h-6"></i>
+      </button>
+
+      <button id="menu-close" class="lg:hidden text-white p-2 hidden">
+        <i id="" class="fas fa-times w-6 h-6"></i>
       </button>
     </div>
   </nav>
 
   <!-- ═══════════════════════════════════════ MOBILE MENU ═════════════════ -->
   <div id="mobile-menu">
-    <button id="close-menu" class="absolute top-6 right-6 text-white">
-      <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
-      </svg>
-    </button>
+    
     <div class="w-12 h-12 rounded-xl bg-sky flex items-center justify-center mb-6">
       <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.2"
@@ -577,7 +571,6 @@
     <a href="#services" class="mobile-nav-link" data-mobile-link>Services</a>
     <a href="#testimonials" class="mobile-nav-link" data-mobile-link>Testimonials</a>
     <a href="#faq" class="mobile-nav-link" data-mobile-link>FAQ</a>
-    <a href="#blog" class="mobile-nav-link" data-mobile-link>Blog</a>
     <a href="#contact" class="mobile-nav-link" data-mobile-link>Contact Us</a>
     <a href="#booking" class="btn-primary mt-4" data-mobile-link>Book a Consultation</a>
   </div>
@@ -1047,8 +1040,8 @@
       <div class="max-w-2xl mx-auto bg-frost rounded-3xl p-8 fade-up">
         <h3 class="font-poppins font-bold text-navy text-xl mb-6">Send Us a Message</h3>
         <div id="contact-success"
-            style="display:none;color:green;font-size:.82rem;background:#fef2f2;border:1px solid #cafed3;border-radius:.5rem;padding:.6rem .9rem">
-          </div>
+          style="display:none;color:green;font-size:.82rem;background:#fef2f2;border:1px solid #cafed3;border-radius:.5rem;padding:.6rem .9rem">
+        </div>
         <form id="contact-form" class="space-y-4" onsubmit="submitContact(event); return false;">
           <div class="grid grid-cols-2 gap-4">
             <div><label class="block mb-1.5">Name</label><input id="c-name" type="text" placeholder="Your full name"
@@ -1266,42 +1259,42 @@
       ],
 
       testimonials: [
-        {
-          name: "Adebola Okonkwo",
-          role: "Business Executive",
-          rating: 5,
-          text: "JP Networking Services made the entire visa process seamless. My consultant was professional, responsive, and got my UK visa approved in record time. Highly recommended!",
-        },
-        {
-          name: "Ngozi Eze",
-          role: "Medical Professional",
-          rating: 5,
-          text: "I used their MOTOV package for medical treatment in Germany. They handled everything — visa, hospital coordination, accommodation. Exceptional service from start to finish.",
-        },
-        {
-          name: "Tunde Balogun",
-          role: "University Student",
-          rating: 5,
-          text: "Thanks to JP Networking, I gained admission to a top Canadian university with a scholarship. They were with me through every step of the application. I can't thank them enough.",
-        },
-        {
-          name: "Fatima Al-Hassan",
-          role: "Entrepreneur",
-          rating: 5,
-          text: "Their one-on-one consultation gave me a clear roadmap for my Schengen visa. Very thorough, very professional. Got approved on first attempt after a previous rejection elsewhere.",
-        },
-        {
-          name: "Emeka Obi",
-          role: "Engineer",
-          rating: 5,
-          text: "I was nervous about the process but my dedicated consultant kept me informed at every stage. The 24/7 support line was a genuine lifeline. Will use them again.",
-        },
-        {
-          name: "Amaka Chukwu",
-          role: "Teacher",
-          rating: 5,
-          text: "Booked the holiday package and it was perfectly organised. Visa sorted, flights arranged, itinerary planned. An absolute pleasure from booking to returning home.",
-        },
+        // {
+        //   name: "Adebola Okonkwo",
+        //   role: "Business Executive",
+        //   rating: 5,
+        //   text: "JP Networking Services made the entire visa process seamless. My consultant was professional, responsive, and got my UK visa approved in record time. Highly recommended!",
+        // },
+        // {
+        //   name: "Ngozi Eze",
+        //   role: "Medical Professional",
+        //   rating: 5,
+        //   text: "I used their MOTOV package for medical treatment in Germany. They handled everything — visa, hospital coordination, accommodation. Exceptional service from start to finish.",
+        // },
+        // {
+        //   name: "Tunde Balogun",
+        //   role: "University Student",
+        //   rating: 5,
+        //   text: "Thanks to JP Networking, I gained admission to a top Canadian university with a scholarship. They were with me through every step of the application. I can't thank them enough.",
+        // },
+        // {
+        //   name: "Fatima Al-Hassan",
+        //   role: "Entrepreneur",
+        //   rating: 5,
+        //   text: "Their one-on-one consultation gave me a clear roadmap for my Schengen visa. Very thorough, very professional. Got approved on first attempt after a previous rejection elsewhere.",
+        // },
+        // {
+        //   name: "Emeka Obi",
+        //   role: "Engineer",
+        //   rating: 5,
+        //   text: "I was nervous about the process but my dedicated consultant kept me informed at every stage. The 24/7 support line was a genuine lifeline. Will use them again.",
+        // },
+        // {
+        //   name: "Amaka Chukwu",
+        //   role: "Teacher",
+        //   rating: 5,
+        //   text: "Booked the holiday package and it was perfectly organised. Visa sorted, flights arranged, itinerary planned. An absolute pleasure from booking to returning home.",
+        // },
       ],
 
       faqs: [
@@ -1490,6 +1483,7 @@
 
     const mobileMenu = document.getElementById('mobile-menu');
     const menuBtn = document.getElementById('menu-btn');
+    // const menuIcon = document.getElementById('menu-icon');
     const closeMenu = document.getElementById('close-menu');
     const menuOpen = document.getElementById('menu-open');
     const menuClose = document.getElementById('menu-close');
@@ -1497,6 +1491,7 @@
     function openMenu() {
       mobileMenu.classList.add('open');
       menuOpen.classList.add('hidden');
+      // menuIcon.classList.add('hidden');
       menuClose.classList.remove('hidden');
       document.body.style.overflow = 'hidden';
     }
@@ -1508,7 +1503,7 @@
     }
 
     menuBtn.addEventListener('click', openMenu);
-    closeMenu.addEventListener('click', closeMenuFn);
+    menuClose.addEventListener('click', closeMenuFn);
 
     document.querySelectorAll('[data-mobile-link]').forEach(link => {
       link.addEventListener('click', closeMenuFn);
